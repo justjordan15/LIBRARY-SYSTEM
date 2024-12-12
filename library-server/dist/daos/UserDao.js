@@ -44,4 +44,4 @@ const UserSchema = new mongoose_1.Schema({
 }, {
     versionKey: false
 });
-exports.default = mongoose_1.default.model('user', UserSchema);
+exports.default = mongoose_1.default.model('User', UserSchema);
