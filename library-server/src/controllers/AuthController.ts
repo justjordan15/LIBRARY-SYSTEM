@@ -1,5 +1,5 @@
 import {Request, Response} from 'express';
-import {register} from '../services/userService';
+import {register} from '../services/UserService';
 import {IUser} from '../models/User';
 
 async function handleRegister(req:Request, res:Response) {
