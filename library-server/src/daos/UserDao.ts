@@ -1,4 +1,4 @@
-import mongoose, {Schema, Document} from "mongoose";
+import mongoose, {Schema, Document} from 'mongoose';
 import {IUser} from '../models/User';
 
 export interface IUserModel extends IUser, Document{};
