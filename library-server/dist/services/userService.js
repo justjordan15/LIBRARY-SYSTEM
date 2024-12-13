@@ -18,6 +18,7 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const config_1 = require("../config");
 const UserDao_1 = __importDefault(require("../daos/UserDao"));
 const LibraryErrors_1 = require("../utils/LibraryErrors");
+const LibraryErrors_2 = require("../utils/LibraryErrors");
 function register(user) {
     return __awaiter(this, void 0, void 0, function* () {
         const ROUNDS = config_1.config.server.rounds;
@@ -37,7 +38,7 @@ function login(credentials) {
         try {
             const user = yield UserDao_1.default.findOne({ email });
             if (!user) {
-                throw new Error("Invalid username or password");
+                throw new LibraryErrors_2.InvalidUsernameOrPasswordError("Invalid username or password");
             }
             else {
                 const validPassword = yield bcrypt_1.default.compare(password, user.password);
@@ -45,12 +46,12 @@ function login(credentials) {
                     return user;
                 }
                 else {
-                    throw new Error("Invalid username or password");
+                    throw new LibraryErrors_2.InvalidUsernameOrPasswordError("Invalid username or password");
                 }
             }
         }
         catch (error) {
-            throw new Error(error.message);
+            throw error;
         }
     });
 }

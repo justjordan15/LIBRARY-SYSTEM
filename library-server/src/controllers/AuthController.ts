@@ -2,6 +2,7 @@ import {Request, Response} from 'express';
 import { login, register } from '../services/userService';
 import {IUser} from '../models/User';
 import { IUserModel } from '../daos/UserDao';
+import { InvalidUsernameOrPasswordError } from '../utils/LibraryErrors';
 
 async function handleRegister(req:Request, res:Response) {
     const user:IUser = req.body;
@@ -48,6 +49,9 @@ async function handleLogin(req:Request, res:Response){
         })
         
     } catch (error:any) {
+        if(error instanceof InvalidUsernameOrPasswordError){
+            res.status(401).json({message: "Unable t ologin user at this time", error:error.message});
+        }
         res.status(500).json({message:"Unable to login user at this time", error:error.message});
     }
 }
