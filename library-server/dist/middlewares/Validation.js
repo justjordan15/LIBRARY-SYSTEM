@@ -22,7 +22,7 @@ function ValidateSchema(schema) {
             next();
         }
         catch (error) {
-            return res.status(422).json({ message: "Object validation failed, please include a valid object" });
+            res.status(422).json({ message: "Object validation failed, please include a valid object" });
         }
     });
 }

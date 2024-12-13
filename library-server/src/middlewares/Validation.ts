@@ -1,15 +1,15 @@
 import Joi, {ObjectSchema} from "joi";
 
 import {NextFunction, Response, Request} from 'express';
-import { IUser } from "../models/User";
+import {IUser} from "../models/User";
 
 export function ValidateSchema(schema: ObjectSchema){
-    return async (req:Request, res:Response, next:NextFunction) => {
+    return async (req:Request, res:Response, next:NextFunction): Promise<void> => {
         try {
             await schema.validateAsync(req.body);
             next();
         } catch (error) {
-            return res.status(422).json({message: "Object validation failed, please include a valid object"})
+            res.status(422).json({message: "Object validation failed, please include a valid object"})
             
         }
     }
