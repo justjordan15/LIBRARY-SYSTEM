@@ -16,6 +16,7 @@ exports.register = register;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const config_1 = require("../config");
 const UserDao_1 = __importDefault(require("../daos/UserDao"));
+const LibraryErrors_1 = require("../utils/LibraryErrors");
 function register(user) {
     return __awaiter(this, void 0, void 0, function* () {
         const ROUNDS = config_1.config.server.rounds;
@@ -25,7 +26,7 @@ function register(user) {
             return yield saved.save();
         }
         catch (error) {
-            throw new Error("Unable to create user at this time");
+            throw new LibraryErrors_1.UnableToSaveUserError(error.message);
         }
     });
 }

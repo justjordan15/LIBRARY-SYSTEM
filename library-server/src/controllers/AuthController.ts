@@ -20,7 +20,11 @@ async function handleRegister(req:Request, res:Response) {
         })
 
     } catch(error:any){
-        res.status(500).json({message: "Unable to register user at this time", error:error.message})
+        if(error.message.includes("E1100 duplicate key error collection:")){
+            res.status(409).json({message: "User with email already exists", error:error.message});
+        } else {
+            res.status(500).json({message: "Unable to register user at this time", error:error.message});
+        }
     }
     
 }
