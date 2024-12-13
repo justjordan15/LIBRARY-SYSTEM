@@ -21,5 +21,27 @@ export async function register(user:IUser):Promise<IUserModel> {
     
 }
 
+export async function login(credentials: {email:string, password:string}):Promise<IUserModel>{
+    const {email, password} = credentials;
+
+    try {
+        const user = await UserDao.findOne({email});
+
+        if(!user){
+            throw new Error("Invalid username or password");
+        } else {
+            const validPassword: boolean = await bcrypt.compare(password, user.password);
+
+            if(validPassword){
+                return user;
+            } else {
+                throw new Error("Invalid username or password");
+            }
+        }
+    } catch (error:any) {
+        throw new Error(error.message);
+    }
+}
+
 
 
