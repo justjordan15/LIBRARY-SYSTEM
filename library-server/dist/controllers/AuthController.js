@@ -27,7 +27,7 @@ function handleRegister(req, res) {
             });
         }
         catch (error) {
-            if (error.message.includes("E1100 duplicate key error collection:")) {
+            if (error.message.includes("E11000 duplicate key error collection:")) {
                 res.status(409).json({ message: "User with email already exists", error: error.message });
             }
             else {
